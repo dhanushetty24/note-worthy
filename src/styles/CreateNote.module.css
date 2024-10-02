@@ -1,0 +1,52 @@
+section {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #E5E5EA;
+}
+
+/* Form Styles */
+
+form {
+  display: flex;
+  width: 50%;
+  flex-direction: column;
+  padding: 20px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input[type="text"] {
+  height: 40px;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+button[type="submit"] {
+  background-color: #4CAF50;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all .5s ease-in-out;
+}
+
+button[type="submit"]:hover {
+  background-color: #3e8e41;
+}
+
+.displayStyle {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}

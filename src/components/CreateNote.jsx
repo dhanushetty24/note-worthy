@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Notes from "./Notes";
+import styles from '../styles/CreateNote.module.css'
 
 const CreateNote = () => {
   const [cardData, setCardData] = useState({ title: '', note: '' });
@@ -14,6 +15,10 @@ const CreateNote = () => {
   const handleInputChange = (e) => {
     setCardData({ ...cardData, [e.target.name]: e.target.value });
   }
+  
+  const handleOnClick = () => {
+    
+  } 
 
   return (
     <section>
@@ -39,7 +44,9 @@ const CreateNote = () => {
             <button type='Submit'>Create</button>
           </div>
         </form>
-        {notes.length ? notes.map((obj) => <Notes cardData = {obj}/>) : <p>No notes available</p>}
+        <ul className={styles.displayStyle}>
+          {notes.length ? notes.map((obj) => <Notes cardData = {obj}/>) : false}
+        </ul>
     </section>
   )
 };

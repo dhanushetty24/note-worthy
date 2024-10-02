@@ -1,9 +1,9 @@
-import CreateNote from "./components/CreateNote";
+import Container from './pages/Container'
 
 const App= () => {
   return (
     <>
-      <CreateNote />
+      <Container />
     </>
   );
 }

@@ -1,9 +1,11 @@
+import styles from '../styles/Notes.module.css'
+
 const Notes = ({cardData}) => {
   return (
-    <div className="card">
+    <li className={styles.card}>
       <h3>{cardData.title}</h3>
       <p>{cardData.note}</p>
-    </div>
+    </li>
   );
 };
 
