@@ -1,61 +1,58 @@
-.notes-list {
-  margin-top: 20px;
-}
-
 .card {
-  width: 100%;
+  width: 21%;
+  height: 150px;
   background-color: #B2FFFC;
   border: 1px solid #2F2F2F;
   color: #444;
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
-  border: 1px solid #ddd;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  flex: 1 1 21%;         /* Grow and shrink as needed, taking up roughly 23% of the container width */
+  flex: 1 1 21%; /* Grow and shrink as needed, roughly taking up 21% of the width */
   margin-right: .9%;
   transition: all .5s ease-in-out;
+  box-sizing: border-box; /* Include padding and border in width calculations */
+  overflow: hidden;
+  position: relative;
 }
 
+/* This ensures each card's height is based on its own content */
 .card h3 {
   width: 100%;
   margin-top: 0;
-  text-wrap: pretty;
 }
 
 .card p {
   margin-bottom: 20px;
-  text-wrap: pretty;
 }
 
-/* Animations */
-
-/* Create Note Animation */
-.create-note-animation {
-  animation: createNote 0.5s ease-in-out;
-}
-
-@keyframes createNote {
-  0% {
-    transform: scale(0.5);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* Hover Effect on Notes */
+/* Hover effect on card */
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
-/* No Notes Available Styles */
+/* No notes available */
 .no-notes {
   text-align: center;
   color: #999;
   font-size: 18px;
   margin-top: 20px;
+}
+
+.closeButton {
+  font-weight: 400;
+  color: #333;
+  border: 0px;
+  border-radius: 5px;
+  background-color: #E5E5EA;
+  padding: 5px 8px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: color .3s ease-in-out;
+}
+
+.closeButton:hover {
+  color: #8B0A1A;
 }
