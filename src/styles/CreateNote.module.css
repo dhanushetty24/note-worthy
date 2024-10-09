@@ -1,15 +1,16 @@
 section {
   max-width: 800px;
   margin: 40px auto;
-  padding: 20px;
   background-color: #E5E5EA;
+  position: relative;
+  border-radius: 1%;
 }
 
 /* Form Styles */
 
 form {
   display: flex;
-  width: 50%;
+  width: 100%;
   flex-direction: column;
   padding: 20px;
 }
@@ -31,7 +32,7 @@ textarea {
   resize: vertical;
 }
 
-button[type="submit"] {
+.addButton, .createButton {
   background-color: #4CAF50;
   color: #fff;
   padding: 10px 20px;
@@ -41,7 +42,7 @@ button[type="submit"] {
   transition: all .5s ease-in-out;
 }
 
-button[type="submit"]:hover {
+.addButton:hover, .createButton:hover {
   background-color: #3e8e41;
 }
 
@@ -49,4 +50,20 @@ button[type="submit"]:hover {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  padding: 5%;
+}
+
+.addButton {
+  position: fixed;
+  top: 50%;
+  right: 50%;
+}
+
+.addButtonWithContent {
+  top: 0;
+  right: 0;
+}
+
+.buttonWrapper {
+  width: 100%;
 }
