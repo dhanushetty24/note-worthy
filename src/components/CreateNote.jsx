@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import Notes from './Notes';
 import Modal from './Modal';
 import styles from '../styles/CreateNote.module.css';
@@ -9,60 +9,60 @@ const CreateNote = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isNoteOpen, setIsNoteOpen] = useState(false);
 
-  // Memoized Handlers
-  const handleSubmit = useCallback((e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setNotes((prevNotes) => [
-      ...prevNotes,
+    setNotes([
+      ...notes,
       { ...cardData, id: Math.floor(Math.random() * Date.now()) },
     ]);
     setCardData({ title: '', note: '', id: '' });
     setIsModalOpen(false);
-  }, [cardData]);
+  };
 
-  const handleInputChange = useCallback((e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
     setCardData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-  }, []);
+  };
 
-  const handleDeleteNote = useCallback((id) => {
+  const handleDeleteNote = (id) => {
     setCardData({ title: '', note: '', id: '' });
     setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
-  }, []);
+  };
 
-  const handleNoteOpen = useCallback((id) => {
+  const handleNoteOpen = (id) => {
     const selectedNote = notes.find((note) => note.id === id);
     setCardData(selectedNote);
-    console.log('triggered1')
     setIsNoteOpen(true);
-  }, [notes]);
+  };
 
-  const handleNoteClose = useCallback(() => {
+  const handleNoteClose = () => {
     setCardData({ title: '', note: '', id: '' });
     setIsNoteOpen(false);
-  }, []);
+  };
 
-  const handleOpenModal = useCallback(() => {
+  const handleOpenModal = () => {
     setIsModalOpen(true);
-  }, []);
+  };
 
-  const handleCloseModal = useCallback(() => {
+  const handleCloseModal = () => {
     setIsModalOpen(false);
-  }, []);
+  };
 
   return (
     <section>
       <div className={styles.buttonWrapper}>
         <button
           className={`${styles.addButton} ${
-            notes.length > 0 || isModalOpen ? styles.addButtonWithContent : false
+            notes.length > 0 || isModalOpen
+              ? styles.addButtonWithContent
+              : false
           }`}
           onClick={handleOpenModal}
         >
-        +
+          +
         </button>
       </div>
       {isModalOpen && (
@@ -90,6 +90,10 @@ const CreateNote = () => {
             <div className={styles.buttonWrapper}>
               <button className={styles.createButton} type='submit'>
                 Create
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
               </button>
             </div>
           </form>
@@ -111,7 +115,7 @@ const CreateNote = () => {
 
       {isNoteOpen && (
         <Modal isModalOpen={isNoteOpen} onClose={handleNoteClose}>
-          <div>
+          <div className={styles.noteOpen}>
             <h3>{cardData.title}</h3>
             <p>{cardData.note}</p>
           </div>
