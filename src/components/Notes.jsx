@@ -5,21 +5,21 @@ const Notes = ({ cardData, handleOnClick, handleNoteOpen }) => {
     e.stopPropagation();
   };
   return (
-    <li className={styles.card} onClick={() => handleNoteOpen(cardData.id)}>
+    <li className={styles.card} onClick={() => handleNoteOpen(cardData._id)}>
       <h3>
         {cardData.title.length > 20
           ? `${cardData.title.slice(0, 18)}...`
           : cardData.title}
       </h3>
       <p>
-        {cardData.note.length > 35
-          ? `${cardData.note.slice(0, 31)}...`
-          : cardData.note}
+        {cardData.content?.length > 35
+          ? `${cardData.content.slice(0, 31)}...`
+          : cardData.content}
       </p>
       <button
         className={styles.closeButton}
         onClick={(e) => {
-          handleOnClick(cardData.id);
+          handleOnClick(cardData._id);
           handleChildElementClick(e);
         }}
       >
