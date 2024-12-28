@@ -15,11 +15,14 @@ form {
   padding: 20px;
 }
 
+.inputWrapper{
+  margin: 10px 0;
+}
+
 input,
 textarea {
   width: 100%;
   padding: 10px;
-  margin-bottom: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
@@ -34,7 +37,8 @@ textarea {
 }
 
 .addButton,
-.createButton {
+.createButton,
+.editButton {
   background-color: #4caf50;
   color: #fff;
   padding: 10px 20px;
@@ -157,7 +161,8 @@ textarea {
 }
 
 .addButton:hover,
-.createButton:hover {
+.createButton:hover,
+.editButton:hover  {
   background-color: #3e8e41;
 }
 
@@ -169,8 +174,16 @@ textarea {
   width: 100%;
   padding: 20px;
   background-color: #B2FFFC;
+  height: 50vh;
+  overflow-y: auto;
 }
 
 .noteOpen h3 {
   border-bottom: 1px solid #2F2F2F;
+}
+
+.warning {
+  color: #FF0000;
+  padding: 10px;
+  font-size: 10px;
 }
