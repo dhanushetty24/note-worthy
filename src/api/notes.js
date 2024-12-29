@@ -1,39 +1,36 @@
+import axios from 'axios';
+
 export const fetchData = async (setNotes) => {
   try {
-    const response = await fetch('http://localhost:8080/api/jotgles');
-    const { data } = await response.json();
-    setNotes(data);
+    const { data } = await axios.get('http://localhost:8080/api/jotgles');
+    setNotes(data.data);
   } catch (error) {
     console.error('Error:', error);
+    throw error;
   }
 };
 
-export const addNote = async (cardDataSet, notes, setNotes) => {
+export const addNote = async (cardDataSet, setNotes) => {
   try {
-    const response = await fetch('http://localhost:8080/api/jotgles', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(cardDataSet),
-    });
-    const { jotgle } = await response.json();
-    setNotes([...notes, jotgle]);
+    const { data } = await axios.post(
+      'http://localhost:8080/api/jotgles',
+      cardDataSet
+    );
+    setNotes((prevNotes) => [...prevNotes, data.jotgle]);
   } catch (error) {
     console.error('Error:', error);
+    throw error;
   }
 };
 
 export const deleteNote = async (_id, setNotes) => {
   try {
-    await fetch(`http://localhost:8080/api/jotgles/${_id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    await axios.delete(
+      `http://localhost:8080/api/jotgles/${_id}`
+    );
     setNotes((prevNotes) => prevNotes.filter((note) => note._id !== _id));
   } catch (error) {
     console.error('Error:', error);
+    throw error;
   }
 };

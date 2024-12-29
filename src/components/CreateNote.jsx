@@ -4,6 +4,7 @@ import Modal from './Modal';
 import { FaPencilAlt } from 'react-icons/fa';
 import styles from '../styles/CreateNote.module.css';
 import { addNote, fetchData, deleteNote } from '../api';
+import LoadingSpinner from './LoadingSpinner';
 
 const CreateNote = () => {
   const [notes, setNotes] = useState([]);
@@ -35,25 +36,50 @@ const CreateNote = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetchData(setNotes).finally(() => {
-      setLoading(false);
-    });
+    const fetchJotgles = async () => {
+      try {
+        await fetchData(setNotes);
+      } catch (error) {
+        console.error(error);
+        //add toast message
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchJotgles();
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    addNote(cardDataSet, notes, setNotes).finally(() => {
-      dispatchCardData({ type: 'RESET' });
-      setLoading(false);
-      setIsModalOpen(false);
-    });
+    const addJotgles = async () => {
+      try {
+        await addNote(cardDataSet, setNotes);
+      } catch (error) {
+        console.error(error);
+        //add toast message
+      } finally {
+        setLoading(false);
+        dispatchCardData({ type: 'RESET' });
+        setIsModalOpen(false);
+      }
+    };
+    addJotgles();
   };
 
   const handleDeleteNote = (_id) => {
     setLoading(true);
-    deleteNote(_id, setNotes).finally(() => setLoading(false));
-    setNotes((prevNotes) => prevNotes.filter((note) => note._id !== _id));
+    const deleteJotgles = async () => {
+      try {
+        await deleteNote(_id, setNotes);
+      } catch (error) {
+        console.error(error);
+        //add toast message
+      } finally {
+        setLoading(false);
+      }
+    };
+    deleteJotgles();
   };
 
   const handleNoteOpen = (_id) => {
@@ -105,59 +131,64 @@ const CreateNote = () => {
       {/* Create new note modal  */}
       {isModalOpen && (
         <Modal isModalOpen={isModalOpen} onClose={handleCloseModal}>
-          <form onSubmit={handleSubmit}>
-            <div className={styles.inputWrapper}>
-              <input
-                type='text'
-                name='title'
-                value={cardDataSet.title}
-                onChange={(e) =>
-                  dispatchCardData({
-                    type: 'UPDATE_TITLE',
-                    payload: e.target.value,
-                  })
-                }
-                placeholder='Title'
-              />
-              {cardDataSet.title.length > 50 && (
-                <p className={styles.warning}>
-                  Warning: Maximum text length of 50 characters exceeded.
-                </p>
-              )}
-              {displayWarn && (
-                <p className={styles.warning}>Warning: Title can't be empty.</p>
-              )}
-            </div>
-            <div className={styles.inputWrapper}>
-              <textarea
-                name='note'
-                value={cardDataSet.content}
-                onChange={(e) =>
-                  dispatchCardData({
-                    type: 'UPDATE_NOTE',
-                    payload: e.target.value,
-                  })
-                }
-                placeholder='Add your Note'
-              />
-              {cardDataSet.content.length > 500 && (
-                <p className={styles.warning}>
-                  Warning: Maximum text length of 500 characters exceeded.
-                </p>
-              )}
-            </div>
-            {!displayCreate() && (
-              <div className={styles.buttonWrapper}>
-                <button className={styles.createButton} type='submit'>
-                  Create
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </button>
+          {loading && <LoadingSpinner />}
+          {!loading && (
+            <form onSubmit={handleSubmit}>
+              <div className={styles.inputWrapper}>
+                <input
+                  type='text'
+                  name='title'
+                  value={cardDataSet.title}
+                  onChange={(e) =>
+                    dispatchCardData({
+                      type: 'UPDATE_TITLE',
+                      payload: e.target.value,
+                    })
+                  }
+                  placeholder='Title'
+                />
+                {cardDataSet.title.length > 50 && (
+                  <p className={styles.warning}>
+                    Warning: Maximum text length of 50 characters exceeded.
+                  </p>
+                )}
+                {displayWarn && (
+                  <p className={styles.warning}>
+                    Warning: Title can't be empty.
+                  </p>
+                )}
               </div>
-            )}
-          </form>
+              <div className={styles.inputWrapper}>
+                <textarea
+                  name='note'
+                  value={cardDataSet.content}
+                  onChange={(e) =>
+                    dispatchCardData({
+                      type: 'UPDATE_NOTE',
+                      payload: e.target.value,
+                    })
+                  }
+                  placeholder='Add your Note'
+                />
+                {cardDataSet.content.length > 500 && (
+                  <p className={styles.warning}>
+                    Warning: Maximum text length of 500 characters exceeded.
+                  </p>
+                )}
+              </div>
+              {!displayCreate() && (
+                <div className={styles.buttonWrapper}>
+                  <button className={styles.createButton} type='submit'>
+                    Create
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </button>
+                </div>
+              )}
+            </form>
+          )}
         </Modal>
       )}
 
