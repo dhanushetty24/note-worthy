@@ -15,7 +15,7 @@ form {
   padding: 20px;
 }
 
-.inputWrapper{
+.inputWrapper {
   margin: 10px 0;
 }
 
@@ -162,7 +162,7 @@ textarea {
 
 .addButton:hover,
 .createButton:hover,
-.editButton:hover  {
+.editButton:hover {
   background-color: #3e8e41;
 }
 
@@ -173,17 +173,17 @@ textarea {
 .noteOpen {
   width: 100%;
   padding: 20px;
-  background-color: #B2FFFC;
+  background-color: #e0f7fa;
   height: 50vh;
   overflow-y: auto;
 }
 
 .noteOpen h3 {
-  border-bottom: 1px solid #2F2F2F;
+  border-bottom: 1px solid #2f2f2f;
 }
 
 .warning {
-  color: #FF0000;
+  color: #ff0000;
   padding: 10px;
   font-size: 10px;
 }

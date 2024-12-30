@@ -5,6 +5,7 @@ import { FaPencilAlt } from 'react-icons/fa';
 import styles from '../styles/CreateNote.module.css';
 import { addNote, fetchData, deleteNote } from '../api';
 import LoadingSpinner from './LoadingSpinner';
+import ErrorHandler from './ErrorHandler';
 
 const CreateNote = () => {
   const [notes, setNotes] = useState([]);
@@ -12,6 +13,11 @@ const CreateNote = () => {
   const [isNoteOpen, setIsNoteOpen] = useState(false);
   const [displayWarn, setDisplayWarn] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [disError, setdisError] = useState({
+    isError: false,
+    statusCode: '',
+    message: '',
+  });
 
   const initialState = { title: '', content: '', id: '' };
   const reducer = (state, action) => {
@@ -35,13 +41,16 @@ const CreateNote = () => {
   const [cardDataSet, dispatchCardData] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    setLoading(true);
     const fetchJotgles = async () => {
+      setLoading(true);
       try {
         await fetchData(setNotes);
       } catch (error) {
-        console.error(error);
-        //add toast message
+        setdisError({
+          isError: true,
+          statusCode: error.status,
+          message: error.message,
+        });
       } finally {
         setLoading(false);
       }
@@ -51,13 +60,16 @@ const CreateNote = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
     const addJotgles = async () => {
+      setLoading(true);
       try {
         await addNote(cardDataSet, setNotes);
       } catch (error) {
-        console.error(error);
-        //add toast message
+        setdisError({
+          isError: true,
+          statusCode: error.status,
+          message: error.message,
+        });
       } finally {
         setLoading(false);
         dispatchCardData({ type: 'RESET' });
@@ -68,15 +80,15 @@ const CreateNote = () => {
   };
 
   const handleDeleteNote = (_id) => {
-    setLoading(true);
     const deleteJotgles = async () => {
       try {
         await deleteNote(_id, setNotes);
       } catch (error) {
-        console.error(error);
-        //add toast message
-      } finally {
-        setLoading(false);
+        setdisError({
+          isError: true,
+          statusCode: error.status,
+          message: error.message,
+        });
       }
     };
     deleteJotgles();
@@ -118,6 +130,7 @@ const CreateNote = () => {
   return (
     <section>
       {/* Create button to create new note */}
+      {!loading &&
       <div className={styles.buttonWrapper}>
         <button
           className={`${styles.addButton} ${
@@ -128,6 +141,16 @@ const CreateNote = () => {
           +
         </button>
       </div>
+      }
+
+      {/* display error toast msg on error occurance */}
+      {disError.isError && (
+        <ErrorHandler
+          statusCode={disError.statusCode}
+          message={disError.message}
+        />
+      )}
+
       {/* Create new note modal  */}
       {isModalOpen && (
         <Modal isModalOpen={isModalOpen} onClose={handleCloseModal}>
@@ -193,7 +216,9 @@ const CreateNote = () => {
       )}
 
       {/* Display all the notes created */}
-      {notes.length > 0 && (
+      {loading && <LoadingSpinner />}
+
+      {!loading && notes.length > 0 && (
         <ul className={styles.displayStyle}>
           {notes.map((note) => (
             <Notes
