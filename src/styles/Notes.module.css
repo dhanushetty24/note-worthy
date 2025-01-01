@@ -1,16 +1,16 @@
 .card {
   width: 21%;
   height: 150px;
-  background-color: #B2FFFC;
-  border: 1px solid #2F2F2F;
-  color: #444;
+  background-color: #e0f7fa;
+  border: 1px solid #2f2f2f;
+  color: #00796B;
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   flex: 1 1 21%; /* Grow and shrink as needed, roughly taking up 21% of the width */
-  margin-right: .9%;
-  transition: all .5s ease-in-out;
+  margin-right: 0.9%;
+  transition: all 0.5s ease-in-out;
   box-sizing: border-box; /* Include padding and border in width calculations */
   overflow: hidden;
   position: relative;
@@ -33,27 +33,19 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
-/* No notes available */
-.no-notes {
-  text-align: center;
-  color: #999;
-  font-size: 18px;
-  margin-top: 20px;
-}
-
 .closeButton {
   font-weight: 400;
   color: #333;
   border: 0px;
   border-radius: 5px;
-  background-color: #E5E5EA;
+  background-color: #e5e5ea;
   padding: 2px 5px;
   position: absolute;
   right: 0;
   top: 0;
-  transition: color .3s ease-in-out;
+  transition: color 0.3s ease-in-out;
 }
 
 .closeButton:hover {
-  color: #8B0A1A;
+  color: #8b0a1a;
 }

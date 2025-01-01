@@ -1,7 +1,7 @@
-import React from 'react';
 import styles from '../styles/Modal.module.css';
 
 const Modal = ({ isModalOpen, onClose, children }) => {
+  if (!isModalOpen) return null;
   return (
     <>
       <div className={styles.backdrop}  onClick={onClose}/>

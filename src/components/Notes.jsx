@@ -12,14 +12,14 @@ const Notes = ({ cardData, handleOnClick, handleNoteOpen }) => {
           : cardData.title}
       </h2>
       <p>
-        {cardData.note.length > 35
-          ? `${cardData.note.slice(0, 31)}...`
-          : cardData.note}
+        {cardData.content?.length > 35
+          ? `${cardData.content.slice(0, 31)}...`
+          : cardData.content}
       </p>
       <button
         className={styles.closeButton}
         onClick={(e) => {
-          handleOnClick(cardData.id);
+          handleOnClick(cardData._id);
           handleChildElementClick(e);
         }}
       >
