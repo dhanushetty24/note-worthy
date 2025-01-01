@@ -6,11 +6,11 @@ const Notes = ({ cardData, handleOnClick, handleNoteOpen }) => {
   };
   return (
     <li className={styles.card} onClick={() => handleNoteOpen(cardData.id)}>
-      <h3>
+      <h2>
         {cardData.title.length > 20
           ? `${cardData.title.slice(0, 18)}...`
           : cardData.title}
-      </h3>
+      </h2>
       <p>
         {cardData.note.length > 35
           ? `${cardData.note.slice(0, 31)}...`

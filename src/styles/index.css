@@ -7,6 +7,29 @@
   padding: 0;
 }
 
+@font-face {
+  font-family: 'Patrick Hand';
+  src: url('../assets/fonts/PatrickHand-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  background-color: #c3ffc5;
+}
+
+h1 {
+  font-size: 100%;
+  font-weight: 900;
+  text-align: center;
+  color:rgb(71, 91, 37);
+}
+
 /*
   Typographic tweaks!
   3. Add accessible line-height
@@ -15,8 +38,8 @@
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Open Sans', sans-serif;
-  letter-spacing: .5px;
+  font-family: 'Patrick Hand', sans-serif;
+  letter-spacing: 2px;
   background-color: #F0F0F0;
 }
 
@@ -67,4 +90,8 @@ ul,ol { list-style: none; }
 /* For ipads and mobile width less than 995px */
 
 
-@media only screen and (max-width:995px) {}
+@media only screen and (max-width:995px) {
+  h1 {
+    font-size: 60%;
+  }
+}

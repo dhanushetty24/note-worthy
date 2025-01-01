@@ -159,7 +159,7 @@ const handleSubmit = (e) => {
       {isNoteOpen && (
         <Modal isModalOpen={isNoteOpen} onClose={handleNoteClose}>
           <div className={styles.noteOpen}>
-            <h3>{cardDataSet.title}</h3>
+            <h2>{cardDataSet.title}</h2>
             <p>{cardDataSet.note}</p>
             <div className={styles.buttonWrapper}>
               <button className={styles.editButton} onClick={handleNoteEdit}>

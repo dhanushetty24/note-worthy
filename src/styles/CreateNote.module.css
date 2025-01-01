@@ -29,6 +29,8 @@ textarea {
 
 input[type='text'] {
   height: 40px;
+  font-weight: 900;
+  letter-spacing: 1px;
 }
 
 textarea {
@@ -178,8 +180,9 @@ textarea {
   overflow-y: auto;
 }
 
-.noteOpen h3 {
+.noteOpen h2 {
   border-bottom: 1px solid #2F2F2F;
+  font-weight: 900;
 }
 
 .warning {

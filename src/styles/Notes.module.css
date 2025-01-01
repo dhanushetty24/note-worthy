@@ -17,9 +17,10 @@
 }
 
 /* This ensures each card's height is based on its own content */
-.card h3 {
+.card h2 {
   width: 100%;
   margin-top: 0;
+  font-weight: 900;
 }
 
 .card p {
