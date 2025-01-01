@@ -5,7 +5,7 @@ const Notes = ({ cardData, handleOnClick, handleNoteOpen }) => {
     e.stopPropagation();
   };
   return (
-    <li className={styles.card} onClick={() => handleNoteOpen(cardData.id)}>
+    <li className={styles.card} onClick={() => handleNoteOpen(cardData._id)}>
       <h2>
         {cardData.title.length > 20
           ? `${cardData.title.slice(0, 18)}...`
