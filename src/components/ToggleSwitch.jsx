@@ -13,6 +13,7 @@ const ToggleSwitch = () => {
           type="checkbox"
           role="switch"
           name="dark"
+          {...(theme === 'dark' ? { checked: true } : {})}
         />
         <span className={styles.switchInner}></span>
         <p className={styles.switchSr}>{theme} Mode</p>

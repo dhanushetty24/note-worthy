@@ -72,6 +72,12 @@ textarea {
   width: 100%;
 }
 
+.editButtonWrapper {
+  position: absolute;
+  bottom: 20px;
+  right: 1%;
+}
+
 .createButton {
   position: relative;
   display: inline-block;
@@ -193,6 +199,6 @@ textarea {
 
 .warning {
   color: #ff0000;
-  padding: 10px;
+  padding-top: 10px;
   font-size: 10px;
 }

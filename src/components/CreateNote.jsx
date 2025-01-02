@@ -3,7 +3,7 @@ import Notes from './Notes';
 import Modal from './Modal';
 import { FaPencilAlt } from 'react-icons/fa';
 import styles from '../styles/CreateNote.module.css';
-import { addNote, fetchData, deleteNote } from '../api';
+import { addNote, fetchData, deleteNote, updateANote } from '../api';
 import LoadingSpinner from './LoadingSpinner';
 import ErrorHandler from './ErrorHandler';
 
@@ -13,6 +13,7 @@ const CreateNote = () => {
   const [isNoteOpen, setIsNoteOpen] = useState(false);
   const [displayWarn, setDisplayWarn] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [updateNote, setUpdateNote] = useState(false);
   const [disError, setdisError] = useState({
     isError: false,
     statusCode: '',
@@ -49,7 +50,7 @@ const CreateNote = () => {
         setdisError({
           isError: true,
           statusCode: error.status,
-          message: error.message,
+          message: error.response ? error.response.data.error : error.message,
         });
       } finally {
         setLoading(false);
@@ -68,7 +69,7 @@ const CreateNote = () => {
         setdisError({
           isError: true,
           statusCode: error.status,
-          message: error.message,
+          message: error.response ? error.response.data.error : error.message,
         });
       } finally {
         setLoading(false);
@@ -79,6 +80,28 @@ const CreateNote = () => {
     addJotgles();
   };
 
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    const updateJotgles = async () => {
+      setLoading(true);
+      try {
+        await updateANote(cardDataSet, setNotes);
+      } catch (error) {
+        setdisError({
+          isError: true,
+          statusCode: error.status,
+          message: error.response ? error.response.data.error : error.message,
+        });
+      } finally {
+        setLoading(false);
+        dispatchCardData({ type: 'RESET' });
+        setIsModalOpen(false);
+        setUpdateNote(false);
+      }
+    };
+    updateJotgles();
+  };
+
   const handleDeleteNote = (_id) => {
     const deleteJotgles = async () => {
       try {
@@ -87,7 +110,7 @@ const CreateNote = () => {
         setdisError({
           isError: true,
           statusCode: error.status,
-          message: error.message,
+          message: error.response ? error.response.data.error : error.message,
         });
       }
     };
@@ -112,11 +135,15 @@ const CreateNote = () => {
   const handleCloseModal = () => {
     dispatchCardData({ type: 'RESET' });
     setIsModalOpen(false);
+    if (updateNote) {
+      setUpdateNote(false);
+    }
   };
 
   const handleNoteEdit = () => {
     setIsNoteOpen(false);
     setIsModalOpen(true);
+    setUpdateNote(true);
   };
 
   const displayCreate = () => {
@@ -130,18 +157,18 @@ const CreateNote = () => {
   return (
     <section>
       {/* Create button to create new note */}
-      {!loading &&
-      <div className={styles.buttonWrapper}>
-        <button
-          className={`${styles.addButton} ${
-            notes.length > 0 || isModalOpen ? styles.addButtonWithContent : ''
-          }`}
-          onClick={handleOpenModal}
-        >
-          +
-        </button>
-      </div>
-      }
+      {!loading && (
+        <div className={styles.buttonWrapper}>
+          <button
+            className={`${styles.addButton} ${
+              notes.length > 0 || isModalOpen ? styles.addButtonWithContent : ''
+            }`}
+            onClick={handleOpenModal}
+          >
+            +
+          </button>
+        </div>
+      )}
 
       {/* display error toast msg on error occurance */}
       {disError.isError && (
@@ -156,7 +183,7 @@ const CreateNote = () => {
         <Modal isModalOpen={isModalOpen} onClose={handleCloseModal}>
           {loading && <LoadingSpinner />}
           {!loading && (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={updateNote ? handleUpdate : handleSubmit}>
               <div className={styles.inputWrapper}>
                 <input
                   type='text'
@@ -202,7 +229,7 @@ const CreateNote = () => {
               {!displayCreate() && (
                 <div className={styles.buttonWrapper}>
                   <button className={styles.createButton} type='submit'>
-                    Create
+                    {updateNote ? 'Update' : 'Create'}
                     <span></span>
                     <span></span>
                     <span></span>
@@ -237,7 +264,7 @@ const CreateNote = () => {
           <div className={styles.noteOpen}>
             <h2>{cardDataSet.title}</h2>
             <p>{cardDataSet.content}</p>
-            <div className={styles.buttonWrapper}>
+            <div className={styles.editButtonWrapper}>
               <button className={styles.editButton} onClick={handleNoteEdit}>
                 <FaPencilAlt size={25} color='white' />
               </button>
