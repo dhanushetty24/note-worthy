@@ -50,7 +50,7 @@ const CreateNote = () => {
         setdisError({
           isError: true,
           statusCode: error.status,
-          message: error.response ? error.response.data.error : error.message,
+          message: error.response ? error.response.data.error || error.response.data : error.message,
         });
       } finally {
         setLoading(false);
