@@ -1,0 +1,79 @@
+:root {
+  --hue: 223;
+  --primary: hsl(var(--hue), 90%, 50%);
+  --trans-dur: 0.6s;
+  --trans-timing: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.switch,
+.switchInput {
+  display: block;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.switch {
+  margin: auto;
+  position: relative;
+  user-select: none;
+}
+
+.switchInner {
+  border-radius: 8px;
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  top: 4px;
+  left: 31px;
+  width: 36px;
+  height: 16px;
+}
+
+.switchInner:before {
+  transition: transform var(--trans-dur) var(--trans-timing);
+  transform: translateX(-20px);
+}
+
+.switchInner:before {
+  background-color: var(--primary);
+  border-radius: inherit;
+  content: '';
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.switchInput {
+  margin: 0 auto;
+  background-color: hsl(0, 0%, 100%);
+  border-radius: 12px;
+  box-shadow: 0 0 0 1px hsla(var(--hue), 90%, 50%, 0),
+    0 2px 8px hsla(var(--hue), 10%, 10%, 0.1);
+  outline: transparent;
+  width: 48px;
+  height: 24px;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: background-color var(--trans-dur), box-shadow var(--trans-dur);
+}
+
+.switchInput:checked {
+  background-color: hsl(var(--hue), 10%, 10%);
+}
+
+.switchInput:checked ~ .switchInner:before,
+.switchInput:checked ~ .switchInnerIcons {
+  transform: translateX(20px);
+}
+
+.switchSr {
+  text-align: center;
+  color: #475b25;
+}
+
+.switchContainer {
+  width: 100px;
+  position: fixed;
+  top: 92%;
+  right: 1%;
+  z-index: 1000;
+}

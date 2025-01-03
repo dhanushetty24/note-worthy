@@ -1,0 +1,60 @@
+.card {
+  display: inline-block;
+  width: 24%;
+  height: 200px;
+  background-color: #e0f7fa;
+  border: 1px solid #2f2f2f;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-right: 0.9%;
+  transition: all 0.5s ease-in-out;
+  box-sizing: border-box; /* Include padding and border in width calculations */
+  overflow: hidden;
+  position: relative;
+}
+
+/* This ensures each card's height is based on its own content */
+.card h2 {
+  width: 100%;
+  margin-top: 0;
+  font-weight: 900;
+  color: #475b25;
+  font-size: 15px;
+}
+
+.card p {
+  margin-bottom: 20px;
+  color: #4b4b4b;
+}
+
+/* Hover effect on card */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.closeButton {
+  font-weight: 400;
+  color: #333;
+  border: 0px;
+  border-radius: 5px;
+  background-color: #e5e5ea;
+  padding: 2px 5px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: color 0.3s ease-in-out;
+}
+
+.closeButton:hover {
+  color: #8b0a1a;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .card {
+    width: 48%;
+  }
+}
