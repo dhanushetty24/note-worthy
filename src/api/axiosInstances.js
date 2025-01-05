@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8080/api', // Base URL
+  baseURL: 'http://jotgles-api-prd.eba-jqkcigmm.ap-south-1.elasticbeanstalk.com/api', // Base URL
 });
 
 // Add a request interceptor to dynamically set the Authorization header if needed
